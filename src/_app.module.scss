@@ -1,0 +1,41 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.title {
+  font-size: 35px;
+  margin: 5% 8%;
+  :first-child{
+    font-size: 15px;
+    color: #666;
+  }
+}
+.iconButons {
+  display: flex;
+  padding: 10px;
+  font-size: 30px;
+  font-weight: lighter;
+  color: #444;
+  margin: 0 5%;
+  &:hover{
+    color: #6200ee;
+    background-color: #ece0fd;
+    border-radius: 10px;
+  }
+  :first-child {
+    position: relative;
+    left: 5px;
+  }
+  :nth-child(2) {
+    position: relative;
+    left: 50px;
+  }
+}
+.label {
+  font-size: 30px;
+  border-top: 1px solid rgba(72, 72, 72, 0.3);
+  padding: 20px;
+  font-weight: 100;
+  color: #444;
+}
