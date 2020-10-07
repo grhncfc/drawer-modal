@@ -1,23 +1,23 @@
-import React, {useState} from 'react';
+import React,{ Fragment } from 'react';
 //style
 import styles from './_drawer.module.scss';
+import { AiOutlineClose } from "react-icons/ai";
 
 const Drawer = (props) => {
-    const [isOpen,setIsOpen] = useState(false);
-    const drawerHandler = () => {
-        setIsOpen(!isOpen);
+    const onClose = () => {
+        props.setIsOpen(false);
+        if (props.onClose){
+            props.onClose();
+        }
     }
     return (
-        <div className={`${styles.defaultDrawer} ${styles.left} ${isOpen ? styles.defaultDrawerActive : ''} ${props.className}`}>
-            <div onClick={drawerHandler} className={`${styles.burgerIcon} ${props.iconClassName}`}>
-                <div className={styles.line1}> </div>
-                <div className={styles.line2}> </div>
-                <div className={styles.line3}> </div>
+        <Fragment>
+            {props.isOpen && <div className={`${props.hasLayout ? styles.defaultBackgroundLayout : styles.defaultNonBackgroundLayout}`} />}
+            <div className={`${styles.defaultDrawer} ${styles.left} ${props.isOpen ? styles.defaultDrawerActive : ''} ${props.className}`}>
+                <AiOutlineClose onClick={onClose} className={styles.iconStyles} />
+                {props.children}
             </div>
-            <div className={`${styles.defaultDrawerItemsStyle} ${props.drawerItemsStyle}`}>
-                {isOpen && props.children}
-            </div>
-        </div>
+        </Fragment>
     );
 };
 

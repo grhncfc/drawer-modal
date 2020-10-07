@@ -1,34 +1,33 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef,  useImperativeHandle } from 'react';
 //style
 import styles from './_modal.module.scss';
+//transitionGroup
+import { CSSTransition } from 'react-transition-group';
 
-const Modal = (props) => {
-    const [isOpen,setIsOpen] = useState(false);
-    const boxRef = useRef() ;
-    const openModalHandler = (e) => {
-        if (boxRef.current.contains(e.target)){
-            return ;
-        }else {
-            console.log("elma");
-            setIsOpen(false);
+const Modal = React.forwardRef((props, ref) => {
+    const boxRef = useRef();
+    useImperativeHandle(ref,()=>({
+        "closeModal": (e) => {
+            if(!boxRef.current.contains(e.target)){
+              props.setIsOpen(false);
+            }
+        }
+    }));
+    const onClose = () => {
+        props.setIsOpen(false);
+        if(props.onClose){
+            props.onClose();
         }
     };
-    const closeModalHandler = () => {
-        setIsOpen(false);
-    }
     return (
-        <div>
-            {!isOpen ? (
-            <button onClick={()=>setIsOpen(true)} className={styles.btnDefault}>Open Model</button>):(
-            <div onClick={openModalHandler} className={styles.defaultBackgroundLayout}>
-                <div ref={boxRef} className={styles.defaultModal}>
-                    {props.children}
-                    <button className={styles.closeButtonDefault} onClick={closeModalHandler}>Close</button>
-                </div>
-            </div>
-            )}
-        </div>
+        props.isOpen && (
+                <div onClick={(e)=>ref.current.closeModal(e)} className={`${props.hasLayout ? styles.defaultBackgroundLayout : styles.defaultNonBackgroundLayout}`}>
+                    <div ref={boxRef} className={`${props.className} ${styles.defaultModal}`}>
+                        {props.children}
+                        <button className={styles.closeButtonDefault} onClick={onClose}>Close</button>
+                    </div>
+                </div>)
     );
-};
+});
 
 export default Modal;

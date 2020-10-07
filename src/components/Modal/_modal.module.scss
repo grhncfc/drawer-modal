@@ -7,8 +7,6 @@
   top: calc(50% - 15vh);
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   z-index: 10;
   box-shadow: 16px 24px 74px -9px rgba(0,0,0,0.72);
 }
@@ -20,29 +18,15 @@
   background-color: rgba(0, 0, 0, 0.5) ;
   z-index: 5;
 }
-
-.btnDefault {
-  position: relative;
-  width: 150px;
-  height: 50px;
-  left: calc(50% - 75px);
-  background-color: gold;
-  border-style: none;
-  outline: none;
-  font-weight: bold;
-  transition: color 300ms ease-out;
-  transition: background-color 300ms ease-out;
-  color: #333;
-  &:hover{
-    background-color: #4a442d;
-    color: #eeeeee;
-    cursor: pointer;
-  }
+.defaultNonBackgroundLayout {
+  @extend .defaultBackgroundLayout;
+  background-color: transparent;
 }
+
 .closeButtonDefault{
   position: absolute;
   top: 85%;
-  z-index: 10;
+  left: calc(50% - 8px);
   background-color: transparent;
   font-weight: bold;
   color: #222;
